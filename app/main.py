@@ -11,5 +11,5 @@ app = Flask(__name__)
 
 if __name__=="__main__":
     app.run(debug=True) #como npm start
-    print(query.login(connection,'asado','c'))
+    #print(query.login(connection,'asado','c'))
 
