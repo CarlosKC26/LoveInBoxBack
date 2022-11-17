@@ -15,14 +15,14 @@ def registerQuery(connection, email, nombre,contrasena,direccion,tarjeta):
     connection.commit()
     return (True,"Usuario registrado correctamente")
 
-def loginQuery(connection, email,contrasena):
+def loginUserQuery(connection, emailUser,contrasenaUser):
     mycursor = connection.cursor()
     mycursor.execute("SELECT `E_MAIL` FROM `loveinbox`.`usuario`;")
 
     myresult = mycursor.fetchall()
 
     for x in myresult:
-        if(email==x[0]):
+        if(emailUser==x[0]):
             
             mycursor = connection.cursor()
             mycursor.execute("SELECT `CONTRASENA` FROM `loveinbox`.`usuario` WHERE `E_MAIL` = '"+ email + "';")
@@ -30,13 +30,54 @@ def loginQuery(connection, email,contrasena):
             myresult2 = mycursor.fetchall()
 
             for y in myresult2:
-                if(contrasena==y[0]):
+                if(contrasenaUser==y[0]):
                     return True
     return False 
 
 def InfoEmpresaQuery(connection, nit):
     mycursor = connection.cursor()
-    mycursor.execute("SELECT * FROM `loveinbox`.`empresa` WHERE `NIT` = `"+ nit + "`;")
+    mycursor.execute("SELECT * FROM `loveinbox`.`empresa` WHERE `NIT` = '"+ nit + "';")
     myresult = mycursor.fetchall()
-    return myresult
+    if (len(myresult)==0):
+        return (None,None,None,None,None)
+    else:
+        return myresult[0]
+
+def loginAdmnQuery(connection, emailAdmn, contrasenaAdmn):
+    #ToDo: Ni idea de como agregar desde el React
+    mycursor = connection.cursor()
+    mycursor.execute("SELECT `E_MAIL` FROM `loveinbox`.`usuario`;")
+
+    myresult = mycursor.fetchall()
+
+    for x in myresult:
+        if(emailAdmn==x[0]):
+            
+            mycursor = connection.cursor()
+            mycursor.execute("SELECT `CONTRASENA` FROM `loveinbox`.`administrador` WHERE `E_MAIL` = '"+ emailAdmn + "';")
+
+            myresult2 = mycursor.fetchall()
+
+            for y in myresult2:
+                if(contrasenaAdmn==y[0]):
+                    return True
+    return False 
+
+def crearProductoQuery(connection, emailAdmn, contrasenaAdmn, idProducto, nombre, imagen, descripcion, precio,
+nit, inventario, descuento):
+    if(loginAdmnQuery):
+        mycursor = connection.cursor()
+        mycursor.execute('''INSERT INTO `loveinbox`.`producto` (`ID_PRODUCTO`, `NOMBRE`, `IMAGEN`, 
+        `DESCRIPCION`, `PRECIO`, `NIT_EMPRESA`, `INVENTARIO`, `DESCUENTO`) VALUES (%s,%s,%s,%s,%s,%s,%s,
+        %s);'''%(idProducto, nombre,imagen,descripcion,precio,nit,inventario,descuento))
+        connection.commit()
+
+        return (True, "Producto agregado")
+
+    else:
+        return (False, "Autenticación Invalida")
+
+def verListadeCompras():
+    #ToDo: No pude mandar datos del React
+    return True
     

@@ -25,7 +25,14 @@ def login(email,contrasena):
     ret=query.loginQuery(connection, email,contrasena)
     return jsonify({'Login': ret})
 
-#@app.route('/infoEmpresa/<email>/<contrasena>', methods = ['POST'])
+@app.route('/infoEmpresa/<nit>', methods = ['GET'])
+def infoEmpresa(nit):
+    ret=query.InfoEmpresaQuery(connection, nit)
+    return jsonify({'Nit': ret[0],
+    'Nombre': ret[1],
+    'Numero de contacto': ret[2],
+    'Perfil de redes': ret[3],
+    'Direccion': ret[4]})
 
 if __name__=="__main__":
     app.run(debug=True) #como npm startgit 
