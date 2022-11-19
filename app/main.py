@@ -20,9 +20,9 @@ def register(email, nombre,contrasena,direccion,tarjeta):
     return jsonify({'Estado': ret[0],
     'Detalles': ret[1]})
 
-@app.route('/login/<email>/<contrasena>', methods = ['POST'])
+@app.route('/login/<email>/<contrasena>', methods = ['GET'])
 def login(email,contrasena):
-    ret=query.loginQuery(connection, email,contrasena)
+    ret=query.loginUserQuery(connection, email,contrasena)
     return jsonify({'Login': ret})
 
 @app.route('/infoEmpresa/<nit>', methods = ['GET'])
@@ -33,6 +33,11 @@ def infoEmpresa(nit):
     'Numero de contacto': ret[2],
     'Perfil de redes': ret[3],
     'Direccion': ret[4]})
+
+@app.route('/loginAdmn/<email>/<contrasena>', methods = ['GET'])
+def loginAdmn(email,contrasena):
+    ret=query.loginAdmnQuery(connection, email,contrasena)
+    return jsonify({'Login': ret})
 
 if __name__=="__main__":
     app.run(debug=True) #como npm startgit 

@@ -25,7 +25,8 @@ def loginUserQuery(connection, emailUser,contrasenaUser):
         if(emailUser==x[0]):
             
             mycursor = connection.cursor()
-            mycursor.execute("SELECT `CONTRASENA` FROM `loveinbox`.`usuario` WHERE `E_MAIL` = '"+ email + "';")
+            mycursor.execute("SELECT `CONTRASENA` FROM `loveinbox`.`usuario` WHERE `E_MAIL` = '"+ emailUser 
+            + "';")
 
             myresult2 = mycursor.fetchall()
 
