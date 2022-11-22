@@ -1,6 +1,6 @@
 def registerQuery(connection, email, nombre,contrasena,direccion,tarjeta):
     mycursor = connection.cursor()
-    mycursor.execute("SELECT 'E_MAIL' FROM USUARIO")
+    mycursor.execute("SELECT 'E_MAIL' FROM public.USUARIO")
 
     myresult = mycursor.fetchall()
 
