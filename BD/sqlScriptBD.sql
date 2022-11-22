@@ -18,7 +18,7 @@ create table ORDEN
    CODIGO_ORDEN             bigint not null,
    ESTADO_ENTREGA           varchar(30) not null,
    CANTIDAD_PRODUCTO        bigint not null,
-   HORARIO_ENTREGA	    datetime not null,
+   HORARIO_ENTREGA	    date not null,
    PAPEL_REGALO		    varchar(60),
    CINTA			    varchar(60),
    MENSAJE			    varchar(60),

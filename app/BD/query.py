@@ -1,6 +1,6 @@
 def registerQuery(connection, email, nombre,contrasena,direccion,tarjeta):
     mycursor = connection.cursor()
-    mycursor.execute("SELECT `E_MAIL` FROM `loveinbox`.`usuario`")
+    mycursor.execute("SELECT 'E_MAIL' FROM USUARIO")
 
     myresult = mycursor.fetchall()
 
@@ -10,14 +10,14 @@ def registerQuery(connection, email, nombre,contrasena,direccion,tarjeta):
             return (False,"El E-mail ya esta registrado")
     mycursor = connection.cursor()
  
-    mycursor.execute('''INSERT INTO `loveinbox`.`usuario` (`E_MAIL`, `NOMBRE`, `CONTRASENA`, `DIRECCION`, `TARJETA`, `PUNTOS`) 
+    mycursor.execute('''INSERT INTO USUARIO (E_MAIL, NOMBRE, CONTRASENA, DIRECCION, TARJETA, PUNTOS) 
         VALUES ('%s', '%s', '%s', '%s', '%s', '0')'''%(email, nombre,contrasena,direccion,tarjeta))
     connection.commit()
     return (True,"Usuario registrado correctamente")
 
 def loginUserQuery(connection, emailUser,contrasenaUser):
     mycursor = connection.cursor()
-    mycursor.execute("SELECT `E_MAIL` FROM `loveinbox`.`usuario`;")
+    mycursor.execute("SELECT 'E_MAIL' FROM USUARIO;")
 
     myresult = mycursor.fetchall()
 
@@ -25,7 +25,7 @@ def loginUserQuery(connection, emailUser,contrasenaUser):
         if(emailUser==x[0]):
             
             mycursor = connection.cursor()
-            mycursor.execute("SELECT `CONTRASENA` FROM `loveinbox`.`usuario` WHERE `E_MAIL` = '"+ emailUser 
+            mycursor.execute("SELECT 'CONTRASENA' FROM USUARIO WHERE E_MAIL = '"+ emailUser 
             + "';")
 
             myresult2 = mycursor.fetchall()
@@ -37,7 +37,7 @@ def loginUserQuery(connection, emailUser,contrasenaUser):
 
 def InfoEmpresaQuery(connection, nit):
     mycursor = connection.cursor()
-    mycursor.execute("SELECT * FROM `loveinbox`.`empresa` WHERE `NIT` = '"+ nit + "';")
+    mycursor.execute("SELECT * FROM EMPRESA WHERE NIT = '"+ nit + "';")
     myresult = mycursor.fetchall()
     if (len(myresult)==0):
         return (None,None,None,None,None)
@@ -47,7 +47,7 @@ def InfoEmpresaQuery(connection, nit):
 def loginAdmnQuery(connection, emailAdmn, contrasenaAdmn):
     #ToDo: Ni idea de como agregar desde el React
     mycursor = connection.cursor()
-    mycursor.execute("SELECT `E_MAIL` FROM `loveinbox`.`usuario`;")
+    mycursor.execute("SELECT 'E_MAIL' FROM USUARIO;")
 
     myresult = mycursor.fetchall()
 
@@ -55,7 +55,7 @@ def loginAdmnQuery(connection, emailAdmn, contrasenaAdmn):
         if(emailAdmn==x[0]):
             
             mycursor = connection.cursor()
-            mycursor.execute("SELECT `CONTRASENA` FROM `loveinbox`.`administrador` WHERE `E_MAIL` = '"+ emailAdmn + "';")
+            mycursor.execute("SELECT 'CONTRASENA' FROM ADMINISTRADOR WHERE E_MAIL = '"+ emailAdmn + "';")
 
             myresult2 = mycursor.fetchall()
 
@@ -68,8 +68,8 @@ def crearProductoQuery(connection, emailAdmn, contrasenaAdmn, idProducto, nombre
 nit, inventario, descuento):
     if(loginAdmnQuery):
         mycursor = connection.cursor()
-        mycursor.execute('''INSERT INTO `loveinbox`.`producto` (`ID_PRODUCTO`, `NOMBRE`, `IMAGEN`, 
-        `DESCRIPCION`, `PRECIO`, `NIT_EMPRESA`, `INVENTARIO`, `DESCUENTO`) VALUES (%s,%s,%s,%s,%s,%s,%s,
+        mycursor.execute('''INSERT INTO PRODUCTO (ID_PRODUCTO, NOMBRE, IMAGEN, 
+        DESCRIPCION, PRECIO, NIT_EMPRESA, INVENTARIO, DESCUENTO) VALUES (%s,%s,%s,%s,%s,%s,%s,
         %s);'''%(idProducto, nombre,imagen,descripcion,precio,nit,inventario,descuento))
         connection.commit()
 
