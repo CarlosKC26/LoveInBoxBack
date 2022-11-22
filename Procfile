@@ -1,1 +1,1 @@
-web: python app/main.py
+web: gunicorn task_list:'create_app()'
