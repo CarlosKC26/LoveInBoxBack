@@ -40,6 +40,6 @@ def loginAdmn(email,contrasena):
     return jsonify({'Login': ret})
 
 if __name__=="__main__":
-    app.run(debug=True,host='0.0.0.0') #como npm startgit 
+    app.run(debug=True,host='0.0.0.0',port=5000) #como npm startgit 
     
 
